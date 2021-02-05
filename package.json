@@ -1,0 +1,22 @@
+{
+  "name": "todo-api-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandaguzzo/todo-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fernandaguzzo/todo-api/issues"
+  },
+  "homepage": "https://github.com/fernandaguzzo/todo-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
