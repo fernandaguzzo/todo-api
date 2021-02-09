@@ -3,67 +3,49 @@ const app = express();
 const port = 3000;
 const dados = require('./dados.json');
 const bodyParser = require('body-parser'); //interpretação do json
-const { Pessoa } = require('./models');
+const { Tarefa } = require('./models');
 
 
 app.use(bodyParser.json());
 
-// listagem de todas as pessoas
-app.get('/pessoas', async (req, res) => {
-    const pessoas = await Pessoa.findAll();
-    res.send(pessoas);
-
+app.get('/tarefas', async(req, res)=>{
+    const tarefas = await Tarefa.findAll();
+    res.status(200).json(tarefas);
 });
 
-//listagem de pessoa por id
-app.get('/pessoas/:id', async (req, res) => {
-     const pessoa = await Pessoa.findAll({
-         where:{
-             id: req.params.id
-         }
-     });
-     res.send(pessoa);
-
+app.get('/tarefas/:id', async(req, res)=>{
+       const tarefa = await Tarefa.findAll({
+           where:{
+               id: req.params.id
+           }
+       });
+     res.status(200).json(tarefa);
+       
 });
 
-//listagem de pessoa por tipo '/pessoa/tipo/:tipo
+app.post('/tarefas', async(req, res)=> {
+    const tarefa = await Tarefa.create(req.body);
+    res.status(201).json(tarefa);
+});
 
-app.get('/pessoas/tipo/:tipo', async (req, res) => {
-    const pessoas = await Pessoa.findAll({
+app.delete('/tarefas/:id', async(req, res)=>{
+    const tarefa = await Tarefa.destroy({
         where:{
-            tipo: req.params.tipo
-        }
-    });
-    res.send(pessoas);
-
-});
-
-// cadastro de nova pessoa
-app.post('/pessoas', async (req, res) => {
-    const pessoa = await Pessoa.create(req.body);
-    res.status(201).json(pessoa);
-});
-
-//remoção de pessoa
-app.delete('/pessoas/:id', async (req, res)=>{
-    const pessoa = await Pessoa.destroy({
-        where: {
             id: req.params.id
         }
-    });
-    res.status(200).json(pessoa);
-
+    })
+    res.status(200).json(tarefa);
 });
 
-//atualização de pessoa
-app.put('/pessoas/:id', async (req, res)=>{
-    const pessoa = await Pessoa.update(req.body, {
+app.put('/tarefas/:id', async (req, res)=>{
+    const tarefa = await Tarefa.update(req.body, {
         where:{
             id: req.params.id
         }
     });
-    res.send(pessoa);
+    res.status(200).json(tarefa);
 });
+
 
 
 app.listen(port);

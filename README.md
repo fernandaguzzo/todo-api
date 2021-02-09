@@ -26,7 +26,7 @@ Diretórios:
 ## Criação de modelos e migrações
 Comandos Sequelize-cli:
 ```
-$ npx sequelize-cli model: generate --name=Tarefa --atributes name:string,desc:string,status:boolean,dateDeConclusao:date,prioridade:string
+$ npx sequelize-cli model: generate --name=Tarefa --attributes name:string,desc:string,status:boolean,dateDeConclusao:date,prioridade:string
 
 $npx sequelize-cli db:migrate
 
