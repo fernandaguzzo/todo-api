@@ -4,9 +4,14 @@ const port = 3000;
 const dados = require('./dados.json');
 const bodyParser = require('body-parser'); //interpretação do json
 const { Tarefa } = require('./models');
+const { status } = require('./models');
 
 
 app.use(bodyParser.json());
+
+app.get('/', async(req, res)=>{
+    res.send('Running =)');
+});
 
 app.get('/tarefas', async(req, res)=>{
     const tarefas = await Tarefa.findAll();
@@ -47,5 +52,27 @@ app.put('/tarefas/:id', async (req, res)=>{
 });
 
 
+app.get('/tarefas/prioridade/:prioridade', async(req, res)=>{
+    const tarefa = await Tarefa.findAll({
+        where:{
+            prioridade: req.params.prioridade
+        }
+    });
+  res.status(200).json(tarefa);
+    
+});
 
-app.listen(port);
+app.get('/tarefas/status/:status', async(req, res)=>{
+    const status = req.params.status !=="false"
+    const tarefa = await Tarefa.findAll({
+        where:{
+            status: status
+        }
+    });
+  res.status(200).json(tarefa);
+    
+});
+
+
+
+app.listen(process.env.PORT || port);
